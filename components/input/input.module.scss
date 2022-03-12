@@ -1,0 +1,9 @@
+.input {
+  &__label {
+    @apply block font-bold text-gray-700 md:w-1/4 md:text-left;
+  }
+
+  &__input {
+    @apply w-full appearance-none rounded border py-2 px-3 text-xs leading-tight text-gray-700 shadow focus:outline-none md:w-3/4;
+  }
+}

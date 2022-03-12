@@ -1,0 +1,7 @@
+.footer {
+  @apply absolute bottom-0 h-20 w-full items-center justify-center border-t text-xs;
+
+  &__credits {
+    @apply flex items-center justify-center gap-1 pt-8;
+  }
+}
