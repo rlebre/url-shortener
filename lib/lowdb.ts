@@ -29,7 +29,7 @@ class LowDB {
   }
 
   private constructor() {
-    const adapter = new JSONFileSync<DataModel>('db.json');
+    const adapter = new JSONFileSync<DataModel>(process.env.DB_LOCATION || 'db.json');
     this.db = new LowSync(adapter);
 
     this.db.read();
@@ -49,7 +49,9 @@ class LowDB {
 
   insertLink = (link: LinkModel) => {
     const foundLink = this.db.data?.links.find((l) => l.shortUrl === link.shortUrl);
-    const isUserAllowed = this.db.data?.users.some((user) => user.email === link.user.email);
+    const isUserAllowed = process.env.ENABLE_AUTHORIZED
+      ? this.db.data?.users.some((user) => user.email === link.user.email)
+      : true;
 
     if (!foundLink && isUserAllowed) {
       this.db.data?.links.push({ ...link, createdAt: new Date(), confirmed: false });
