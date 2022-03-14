@@ -28,7 +28,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const short = shortUrl || Math.random().toString(36).substring(2, 6);
   const confirmationHash = Math.random().toString(36).substring(2);
   const link: LinkModel = { shortUrl: short, fullUrl, user, confirmed: false, confirmationHash };
-  console.log(link, confirmationHash);
 
   lowDB.insertLink(link);
 

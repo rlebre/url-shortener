@@ -65,7 +65,6 @@ class LowDB {
     const foundLinkIndex = this.db.data?.links.findIndex((l) => l.confirmationHash == confirmationHash) as number;
 
     if (foundLinkIndex >= 0) {
-      console.log('entrei');
       Object.assign(this.db.data?.links[foundLinkIndex], {
         ...this.db.data?.links[foundLinkIndex],
         confirmed: true,
