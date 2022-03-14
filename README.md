@@ -1,27 +1,86 @@
-# Next.js + Tailwind CSS Example
+# Summit Racing VA
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+URL Shortener is a small project that allows authorized users to shorten their long URls. Users may get a random 4 alphanumeric identifier of their links or, alternatively, provide a custom slug. The effectiveness of the short URL goes live after the e-mail confirmation.
 
-## Preview
+The project is built using [Next.js](https://nextjs.org/) framework.
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+## Table of Contents
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Running](#running)
+- [Deploying](#deploying)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Deploy your own
+## Requirements
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+- Node.JS - v14 at least
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+## Setup
 
-## How to use
+1. Clone this repository
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+   ```bash
+   git clone git@github.com:rlebre/url-shortener.git
+   ```
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
+2. Install the dependencies
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+   ```bash
+   yarn # or npm install
+   ```
+
+3. Create a `.env` file and fill the following environment variables
+
+   ```bash
+   MAIL_HOST="smtp_server"
+   MAIL_PORT="smtp_port"
+   MAIL_EMAIL="email"
+   MAIL_PASSWORD="email_password"
+   NEXT_PUBLIC="public_url"
+   ```
+
+## Running
+
+1. Development mode
+
+   ```bash
+   yarn dev
+   ```
+
+## Deploying
+
+This project is built with [Next.js](https://nextjs.org/). You may deploy this project under custom solutions or follow the [official instructions](https://nextjs.org/docs/deployment).
+
+1. Build the application
+
+   ```bash
+   yarn build
+   ```
+
+1. Start the application
+
+   ```bash
+   yarn start
+   ```
+
+## Contributing
+
+This project is open to new contributors who may find their ideas usefull to be implemented.
+
+### Found a bug or have a suggestion?
+
+Use the [Issues](https://github.com/rlebre/url-shortener/issues) tab and place your question or suggestion.
+
+### Want to include your code in this project?
+
+Fork this repository, create your branch and suggest your [Pull Request](https://github.com/rlebre/url-shortener/pulls).
+
+### Contributors
+
+- [@rlebre](https://github.com/rlebre/url-shortener) - maintainer
+
+## License
+
+This project is under MIT license.
