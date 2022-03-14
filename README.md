@@ -41,6 +41,23 @@ The project is built using [Next.js](https://nextjs.org/) framework.
    NEXT_PUBLIC="public_url"
    ```
 
+4. Setup the authorized users. Create a `db.json` file under the project root
+
+```json
+{
+  "users": [
+    {
+      "email": "authorized list"
+    },
+    {
+      "email": "of emails"
+    }
+  ],
+
+  "links": []
+}
+```
+
 ## Running
 
 1. Development mode
