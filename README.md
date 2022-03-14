@@ -1,4 +1,4 @@
-# Summit Racing VA
+# URL Shortener
 
 URL Shortener is a small project that allows authorized users to shorten their long URls. Users may get a random 4 alphanumeric identifier of their links or, alternatively, provide a custom slug. The effectiveness of the short URL goes live after the e-mail confirmation.
 
