@@ -1,4 +1,4 @@
-import { LowSync, JSONFileSync } from 'lowdb';
+import { LowSync, JSONFileSync, MemorySync } from 'lowdb';
 
 export interface UserModel {
   email: string;
@@ -29,7 +29,11 @@ class LowDB {
   }
 
   private constructor() {
-    const adapter = new JSONFileSync<DataModel>(process.env.DB_LOCATION || 'db.json');
+    const adapter =
+      process.env.DB_TYPE === 'memory'
+        ? new MemorySync<DataModel>()
+        : new JSONFileSync<DataModel>(process.env.DB_LOCATION || 'db.json');
+
     this.db = new LowSync(adapter);
 
     this.db.read();
