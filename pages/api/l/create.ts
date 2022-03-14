@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const user: UserModel = { email };
 
-  if (!lowDB.userExists(user)) {
+  if (process.env.ENABLE_AUTHORIZED && !lowDB.userExists(user)) {
     res.status(401).send('User not authorized.');
     return;
   }
