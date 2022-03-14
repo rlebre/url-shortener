@@ -1,13 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { LinkModel, getFullURL } from '../../../lib/lowdb';
+import LowDB from '../../../lib/lowdb';
+
+const lowDB = LowDB.Instance;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const shortUrl = req.query.shortUrl as string;
 
-  const fullUrl: LinkModel | undefined = getFullURL(shortUrl);
+  const fullUrl: string | undefined = lowDB.getLink(shortUrl)?.fullUrl;
 
   if (fullUrl) {
-    res.redirect(fullUrl?.fullUrl);
+    res.redirect(fullUrl);
   } else {
     res.status(404).redirect('/404');
   }

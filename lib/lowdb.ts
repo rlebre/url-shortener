@@ -58,7 +58,7 @@ class LowDB {
   };
 
   getLink = (shortUrl: string) => {
-    return this.db.data?.links.find((link: LinkModel) => link.shortUrl === shortUrl);
+    return this.db.data?.links.find((link: LinkModel) => link.confirmed && link.shortUrl === shortUrl);
   };
 
   confirmHash(confirmationHash: string) {

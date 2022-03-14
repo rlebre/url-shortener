@@ -17,7 +17,7 @@ class EmailSender {
         We need to verify that you have requested a URL shortener for the following:<br/>
         <br/>
 
-        Link to be shorten: <a href="[long-link]">[long-link]</a><br/>
+        URL to be shorten: <a href="[long-link]">[long-link]</a><br/>
         <br/>
 
         Shortened link: <a href="[short-link]">[short-link]</a><br/>
