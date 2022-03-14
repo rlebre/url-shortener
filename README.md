@@ -7,7 +7,7 @@ The project is built using [Next.js](https://nextjs.org/) framework.
 ## Table of Contents
 
 - [Requirements](#requirements)
-- [Installation](#installation)
+- [Setup](#setup)
 - [Running](#running)
 - [Deploying](#deploying)
 - [Contributing](#contributing)
