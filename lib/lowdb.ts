@@ -34,6 +34,7 @@ class LowDB {
         ? new MemorySync<DataModel>()
         : new JSONFileSync<DataModel>(process.env.DB_LOCATION || 'db.json');
 
+    console.log(adapter);
     this.db = new LowSync(adapter);
 
     this.db.read();
@@ -69,7 +70,7 @@ class LowDB {
 
   confirmHash(confirmationHash: string) {
     const foundLinkIndex = this.db.data?.links.findIndex((l) => l.confirmationHash == confirmationHash) as number;
-
+    console.log(foundLinkIndex);
     if (foundLinkIndex >= 0) {
       Object.assign(this.db.data?.links[foundLinkIndex], {
         ...this.db.data?.links[foundLinkIndex],
