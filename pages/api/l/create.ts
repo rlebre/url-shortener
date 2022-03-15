@@ -1,8 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import EmailSender from '../../../lib/email';
 import LowDB, { UserModel, LinkModel } from '../../../lib/lowdb';
+import MongoDB from '../../../lib/mongodb';
 
 const lowDB = LowDB.Instance;
+const mongodb = MongoDB.Instance;
 const emailSender = new EmailSender();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -29,17 +31,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const confirmationHash = Math.random().toString(36).substring(2);
   const link: LinkModel = { shortUrl: short, fullUrl, user, confirmed: false, confirmationHash };
 
-  lowDB.insertLink(link);
+  try {
+    await mongodb.insertUrl(link);
 
-  emailSender
-    .sendConfirmationEmail({
-      confirmationHash,
-      shortLink: short,
-      longLink: fullUrl,
-      toEmail: email,
-    })
-    .then(() => res.status(200).json({ status: 'Confirmation email sent.' }))
-    .catch(() => res.status(400).json({ status: 'Error while sending email.' }));
+    emailSender
+      .sendConfirmationEmail({
+        confirmationHash,
+        shortLink: short,
+        longLink: fullUrl,
+        toEmail: email
+      })
+      .then(() => res.status(200).json({ status: 'Confirmation email sent.' }))
+      .catch(() => res.status(400).json({ status: 'Error while sending email.' }));
+  } catch (e) {
+    res.status(400).json({ status: 'Error inserting email.' });
+  }
 }
 
 export const config = {
