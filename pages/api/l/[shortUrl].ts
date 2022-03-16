@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import LowDB from '../../../lib/lowdb';
+import UrlShortenerDatabase from '../../../lib/urlshortener-database';
 
-const lowDB = LowDB.Instance;
+const db = UrlShortenerDatabase.Instance;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const shortUrl = req.query.shortUrl as string;
 
-  const fullUrl: string | undefined = lowDB.getLink(shortUrl)?.fullUrl;
+  const fullUrl: string | undefined = (await db.getUrl(shortUrl))?.fullUrl;
 
   if (fullUrl) {
     res.redirect(fullUrl);

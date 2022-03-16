@@ -11,6 +11,11 @@
   }
 
   &__description {
+    @apply flex items-center gap-2;
+
+    &__icon {
+      font-size: 30px;
+    }
   }
 }
 

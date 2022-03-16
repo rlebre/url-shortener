@@ -1,11 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import LowDB from '../../../../lib/lowdb';
+import UrlShortenerDatabase from '../../../../lib/url-shortener-database';
 
-const lowDB = LowDB.Instance;
+const db = UrlShortenerDatabase.Instance;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const confirmationHash = req.query.confirmationHash as string;
-  const confirmationOk = lowDB.confirmHash(confirmationHash);
+  const confirmationOk = await db.confirmHash(confirmationHash);
   console.log(confirmationHash, confirmationOk);
   if (confirmationOk) {
     res.redirect('/confirmed');
