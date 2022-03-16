@@ -25,7 +25,6 @@ const Home: NextPage = () => {
         setShowModal(true);
       })
       .catch((error: AxiosError<DbStatus>) => {
-        console.log(error.response?.data);
         setModalMessage(error.response?.data.message || 'Unknown error.');
         setModalStatus(error.response?.data.status);
         setShowModal(true);
