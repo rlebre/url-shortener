@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { isEmail, isWebsite } from '../../lib/validators';
 import Input from '../input/input';
 import styles from './create-form.module.scss';
 
@@ -31,6 +32,7 @@ const CreateForm = ({ onFormSubmit }: Props) => {
         placeholder='ze.manel@ua.pt'
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        validator={(email: string) => isEmail(email)}
       />
 
       <Input
@@ -41,6 +43,7 @@ const CreateForm = ({ onFormSubmit }: Props) => {
         placeholder='https://dicoogle.com/data/share?id=8ad87e87b69sdf890su'
         value={fullUrl}
         onChange={(e) => setFullUrl(e.target.value)}
+        validator={(website: string) => isWebsite(website)}
       />
 
       <Input
@@ -51,6 +54,7 @@ const CreateForm = ({ onFormSubmit }: Props) => {
         placeholder='dicoogle-data'
         value={shortUrl}
         onChange={(e) => setShortUrl(e.target.value)}
+        validator={(value: string) => value.length >= 4}
       />
 
       <div className='flex items-center justify-center gap-2'>

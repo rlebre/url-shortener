@@ -5,5 +5,14 @@
 
   &__input {
     @apply w-full appearance-none rounded border py-2 px-3 text-xs leading-tight text-gray-700 shadow focus:outline-none md:w-3/4;
+
+    &__error {
+      @apply border-2 border-red-500;
+
+      &__icon {
+        @apply text-red-600;
+        font-size: 24px;
+      }
+    }
   }
 }
