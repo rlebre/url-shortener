@@ -6,7 +6,8 @@ const db = UrlShortenerDatabase.Instance;
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const shortUrl = req.query.shortUrl as string;
 
-  const fullUrl: string | undefined = (await db.getUrl(shortUrl))?.fullUrl;
+  let fullUrl: string | undefined = (await db.getUrl(shortUrl))?.fullUrl;
+  fullUrl = fullUrl?.startsWith('http') ? fullUrl : `http://${fullUrl}`;
 
   if (fullUrl) {
     res.redirect(fullUrl);
