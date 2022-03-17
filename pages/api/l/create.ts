@@ -30,10 +30,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const short = shortUrl || Math.random().toString(36).substring(2, 6);
   const confirmationHash = Math.random().toString(36).substring(2);
-  const link: UrlModel = { shortUrl: short, fullUrl, user, confirmed: false, confirmationHash };
+  const url: UrlModel = { shortUrl, fullUrl, user, confirmed: false, confirmationHash };
 
   try {
-    const { status, message } = await db.insertUrl(link);
+    const { status, message } = await db.insertUrl(url);
 
     if (status === StatusCode.Error) {
       res.status(400).json({ status, message });
@@ -41,8 +41,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       emailSender
         .sendConfirmationEmail({
           confirmationHash,
-          shortLink: short,
-          longLink: fullUrl,
+          shortUrl,
+          fullUrl,
           toEmail: email,
         })
         .then(() => res.status(200).json({ status: StatusCode.OK, message: 'Confirmation email sent.' }))

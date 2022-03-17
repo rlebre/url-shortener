@@ -58,7 +58,7 @@ const CreateForm = ({ onFormSubmit }: Props) => {
       />
 
       <div className='flex items-center justify-center gap-2'>
-        <button className={styles.form__submit} type='button' onClick={handleSubmitClick}>
+        <button className={styles.form__submit} type='button' onClick={handleSubmitClick} disabled={!fullUrl || !email}>
           Submit
         </button>
 

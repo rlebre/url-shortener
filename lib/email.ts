@@ -3,8 +3,8 @@ import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 export interface ConfirmationEmailProps {
   toEmail: string;
-  longLink: string;
-  shortLink: string;
+  fullUrl: string;
+  shortUrl: string;
   confirmationHash: string;
 }
 
@@ -17,10 +17,10 @@ class EmailSender {
         We need to verify that you have requested a URL shortener for the following:<br/>
         <br/>
 
-        URL to be shorten: <a href="[long-link]">[long-link]</a><br/>
+        URL to be shorten: <a href="[long-url]">[long-url]</a><br/>
         <br/>
 
-        Shortened link: <a href="[short-link]">[short-link]</a><br/>
+        Shortened url: <a href="[short-url]">[short-url]</a><br/>
         <br/>
 
         To confirm, please click <a href="[confirmation-hash]">here</a>. Otherwise, please do not click in any of the links above!<br/>
@@ -48,13 +48,13 @@ class EmailSender {
 
   sendConfirmationEmail({
     toEmail,
-    longLink,
-    shortLink,
+    fullUrl,
+    shortUrl,
     confirmationHash,
   }: ConfirmationEmailProps): Promise<SMTPTransport.SentMessageInfo> {
     const emailTemplate = this.template
-      .replace(/\[long-link\]/g, longLink)
-      .replace(/\[short-link\]/g, `${process.env.NEXT_PUBLIC}/l/${shortLink}`)
+      .replace(/\[long-url\]/g, fullUrl)
+      .replace(/\[short-url\]/g, `${process.env.NEXT_PUBLIC}/l/${shortUrl}`)
       .replace(/\[confirmation-hash\]/g, `${process.env.NEXT_PUBLIC}/api/l/confirm/${confirmationHash}`);
 
     return this.transporter.sendMail({

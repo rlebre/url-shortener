@@ -1,5 +1,4 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import { DbStatsOptions } from 'mongodb';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useState } from 'react';
@@ -8,7 +7,7 @@ import Footer from '../components/footer/footer';
 import { Modal } from '../components/modal/modal';
 import { StatusCode } from '../constants/StatusCodes';
 import DbStatus from '../interfaces/DbStatus';
-import { createShortenURL } from '../services/link-service';
+import { createShortenURL } from '../services/url-service';
 
 const Home: NextPage = () => {
   const [showModal, setShowModal] = useState(false);

@@ -1,6 +1,6 @@
 # URL Shortener
 
-URL Shortener is a small project that allows authorized users to shorten their long URls. Users may get a random 4 alphanumeric identifier of their links or, alternatively, provide a custom slug. The effectiveness of the short URL goes live after the e-mail confirmation.
+URL Shortener is a small project that allows authorized users to shorten their long URls. Users may get a random 4 alphanumeric identifier of their URLs or, alternatively, provide a custom slug. The effectiveness of the short URL goes live after the e-mail confirmation.
 
 The project is built using [Next.js](https://nextjs.org/) framework.
 
@@ -34,27 +34,29 @@ The project is built using [Next.js](https://nextjs.org/) framework.
 3. Create a `.env` file and fill the following environment variables
 
    ```bash
-   MAIL_HOST="smtp_server"
-   MAIL_PORT="smtp_port"
-   MAIL_EMAIL="email"
-   MAIL_PASSWORD="email_password"
-   NEXT_PUBLIC="public_url"
+   MAIL_HOST="mail.example.com"
+   MAIL_PORT="123"
+   MAIL_EMAIL="email@example.com"
+   MAIL_PASSWORD="password"
+   NEXT_PUBLIC="http://localhost:3000"
+   #ENABLE_AUTHORIZED=1
+   MONGODB_URI="mongodb+srv://<username>:<password>@<host>/<database>?retryWrites=true&w=majority"
    ```
 
-4. Setup the authorized users. Create a `db.json` file under the project root
+4. Setup the authorized users. Either disable `ENABLE_AUTHORIZED` flag and accept all created URLs or ill database collection `users` with
 
 ```json
 {
   "users": [
     {
-      "email": "authorized list"
+      "email": "authorized list",
+      "active": "true"
     },
     {
-      "email": "of emails"
+      "email": "of emails",
+      "active": "true"
     }
-  ],
-
-  "links": []
+  ]
 }
 ```
 
