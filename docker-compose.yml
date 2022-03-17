@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  urlshortener_db:
+    container_name: urlshortener_db
+    image: mongo:latest
+    ports:
+      - 3001:27017
+    environment:
+      - MONGODB_DATABASE=urls
+    env_file:
+      - .env.local
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - all
+
+volumes:
+  mongodb_data:
+
+networks:
+  all:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.2.0.0/16
