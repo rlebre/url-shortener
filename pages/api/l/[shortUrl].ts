@@ -7,9 +7,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const shortUrl = req.query.shortUrl as string;
 
   let fullUrl: string | undefined = (await db.getUrl(shortUrl))?.fullUrl;
-  fullUrl = fullUrl?.startsWith('http') ? fullUrl : `http://${fullUrl}`;
 
   if (fullUrl) {
+    fullUrl = fullUrl?.startsWith('http') ? fullUrl : `http://${fullUrl}`;
     res.redirect(fullUrl);
   } else {
     res.status(404).redirect('/404');

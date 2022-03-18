@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const short = shortUrl || Math.random().toString(36).substring(2, 6);
   const confirmationHash = Math.random().toString(36).substring(2);
-  const url: UrlModel = { shortUrl, fullUrl, user, confirmed: false, confirmationHash };
+  const url: UrlModel = { shortUrl: short, fullUrl, user, confirmed: false, confirmationHash };
 
   try {
     const { status, message } = await db.insertUrl(url);

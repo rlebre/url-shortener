@@ -1,0 +1,5 @@
+.env*
+.next
+.husky
+node_modules
+npm-debug.log
