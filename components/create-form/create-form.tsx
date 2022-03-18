@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { FormEvent, useCallback, useState } from 'react';
 import { isEmail, isWebsite } from '../../lib/validators';
 import Input from '../input/input';
 import styles from './create-form.module.scss';
@@ -12,9 +12,13 @@ const CreateForm = ({ onFormSubmit }: Props) => {
   const [shortUrl, setShortUrl] = useState<string>('');
   const [email, setEmail] = useState<string>('');
 
-  const handleSubmitClick = useCallback(() => {
-    onFormSubmit(fullUrl, shortUrl, email);
-  }, [fullUrl, shortUrl, email]);
+  const handleSubmitClick = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      onFormSubmit(fullUrl, shortUrl, email);
+    },
+    [fullUrl, shortUrl, email],
+  );
 
   const handleClearClick = useCallback(() => {
     setFullUrl('');
@@ -23,7 +27,7 @@ const CreateForm = ({ onFormSubmit }: Props) => {
   }, [fullUrl, shortUrl, email]);
 
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={handleSubmitClick}>
       <Input
         className={styles.form__input}
         label='Email'
@@ -58,7 +62,7 @@ const CreateForm = ({ onFormSubmit }: Props) => {
       />
 
       <div className='flex items-center justify-center gap-2'>
-        <button className={styles.form__submit} type='button' onClick={handleSubmitClick} disabled={!fullUrl || !email}>
+        <button className={styles.form__submit} type='submit' disabled={!fullUrl || !email}>
           Submit
         </button>
 
