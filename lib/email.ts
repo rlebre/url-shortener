@@ -1,5 +1,4 @@
-import Nodemailer from 'nodemailer';
-import SMTPTransport from 'nodemailer/lib/smtp-transport';
+import sgMail from '@sendgrid/mail';
 
 export interface ConfirmationEmailProps {
   toEmail: string;
@@ -9,7 +8,6 @@ export interface ConfirmationEmailProps {
 }
 
 class EmailSender {
-  private transporter;
   private template = `
         Dear user,<br/>
         <br/>
@@ -17,10 +15,10 @@ class EmailSender {
         We need to verify that you have requested a URL shortener for the following:<br/>
         <br/>
 
-        URL to be shorten: <a href="[long-url]">[long-url]</a><br/>
+        URL to be shortened: <a href="[long-url]">[long-url]</a><br/>
         <br/>
 
-        Shortened url: <a href="[short-url]">[short-url]</a><br/>
+        Shortened URL: <a href="[short-url]">[short-url]</a><br/>
         <br/>
 
         To confirm, please click <a href="[confirmation-hash]">here</a>. Otherwise, please do not click in any of the links above!<br/>
@@ -34,30 +32,16 @@ class EmailSender {
 
   constructor(template?: string) {
     template && (this.template = template);
-
-    this.transporter = Nodemailer.createTransport({
-      host: process.env.MAIL_HOST,
-      port: +(process.env.MAIL_PORT || ''),
-      secure: false,
-      auth: {
-        user: process.env.MAIL_EMAIL,
-        pass: process.env.MAIL_PASSWORD,
-      },
-    });
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
   }
 
-  sendConfirmationEmail({
-    toEmail,
-    fullUrl,
-    shortUrl,
-    confirmationHash,
-  }: ConfirmationEmailProps): Promise<SMTPTransport.SentMessageInfo> {
+  sendConfirmationEmail({ toEmail, fullUrl, shortUrl, confirmationHash }: ConfirmationEmailProps) {
     const emailTemplate = this.template
       .replace(/\[long-url\]/g, fullUrl)
       .replace(/\[short-url\]/g, `${process.env.NEXT_PUBLIC}/l/${shortUrl}`)
       .replace(/\[confirmation-hash\]/g, `${process.env.NEXT_PUBLIC}/api/l/confirm/${confirmationHash}`);
 
-    return this.transporter.sendMail({
+    return sgMail.send({
       from: `Url Shortener <${process.env.MAIL_EMAIL}>`,
       to: toEmail,
       subject: 'URL Shortener request confirmation',

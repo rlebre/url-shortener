@@ -74,7 +74,8 @@ class UrlShortenerDatabase {
     };
     const result = await urls.updateOne({ shortUrl: url.shortUrl }, updateDoc, { upsert: true });
 
-    if (result.upsertedCount <= 0) return this.status(StatusCode.Error, 'Error while creating short URL.');
+    if (result.upsertedCount <= 0 && result.modifiedCount <= 0)
+      return this.status(StatusCode.Error, 'Error while creating short URL.');
 
     return this.status(StatusCode.OK, 'Short URL created.');
   };
