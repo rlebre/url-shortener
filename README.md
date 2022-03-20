@@ -6,12 +6,18 @@ The project is built using [Next.js](https://nextjs.org/) framework.
 
 ## Table of Contents
 
+- [Demo](#demo)
 - [Requirements](#requirements)
 - [Setup](#setup)
 - [Running](#running)
 - [Deploying](#deploying)
 - [Contributing](#contributing)
+- [Thanks](#thanks)
 - [License](#license)
+
+## Demo
+
+This project was deployed using Vercel free hosting for Next.js projects. You may try it at https://url-shortener-demo.vercel.app/. Please be aware that demo is using free tier services. Any cold starting delay is normal.
 
 ## Requirements
 
@@ -99,6 +105,10 @@ Fork this repository, create your branch and suggest your [Pull Request](https:/
 ### Contributors
 
 - [@rlebre](https://github.com/rlebre/url-shortener) - maintainer
+
+## Thanks
+
+- [Next.js](https://nextjs.org/) team for providing guidance, especially in [with-docker](https://github.com/vercel/next.js/tree/canary/examples/with-docker) example.
 
 ## License
 
