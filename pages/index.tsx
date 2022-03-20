@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 import CreateForm from '../components/create-form/create-form';
 import Footer from '../components/footer/footer';
+import Loading from '../components/loading/loading';
 import { Modal } from '../components/modal/modal';
 import { StatusCode } from '../constants/StatusCodes';
 import DbStatus from '../interfaces/DbStatus';
@@ -13,10 +14,13 @@ const Home: NextPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [modalStatus, setModalStatus] = useState<StatusCode | undefined>();
+  const [showLoading, setShowLoading] = useState(false);
 
   const onModalClose = () => setShowModal(false);
 
   const onFormSubmit = (fullUrl: string, shortUrl: string, email: string) => {
+    setShowLoading(true);
+
     createShortenURL(fullUrl, email, shortUrl)
       .then((response: AxiosResponse<DbStatus>) => {
         setModalMessage(response.data.message);
@@ -27,11 +31,14 @@ const Home: NextPage = () => {
         setModalMessage(error.response?.data.message || 'Unknown error.');
         setModalStatus(error.response?.data.status);
         setShowModal(true);
-      });
+      })
+      .finally(() => setShowLoading(false));
   };
 
   return (
     <>
+      {showLoading && <Loading />}
+
       {showModal && (
         <Modal status={modalStatus} handleCloseClick={() => onModalClose()}>
           {modalMessage}
